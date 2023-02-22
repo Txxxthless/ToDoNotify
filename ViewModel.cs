@@ -20,7 +20,7 @@ namespace ToDoNotify
                 Thread.Sleep(1000);
                 foreach (var o in objectives)
                 {
-                    if (mainForm is not null)
+                    if (DateTime.Now.CompareTo(o.objectiveTime) >= 0 && mainForm is not null)
                     {
                         mainForm.Invoke(mainForm.DeleteFromListBox, new Object[] { objectives.IndexOf(o) });
                         objectives.Remove(o);

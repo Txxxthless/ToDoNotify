@@ -15,6 +15,7 @@ namespace ToDoNotify
             DeleteFromListBox = (int index) =>
             {
                 listBox1.Items.RemoveAt(index);
+                MessageBox.Show(viewModel.objectives[index].objectiveDescription);
             };
 
             Task.Run(() => viewModel.DoChecking());
