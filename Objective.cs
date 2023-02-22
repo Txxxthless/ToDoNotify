@@ -8,18 +8,18 @@ namespace ToDoNotify
 {
     internal class Objective
     {
-        private DateTime _objectiveTime;
-        private string _objectiveDescription;
+        public DateTime objectiveTime;
+        public string objectiveDescription;
 
-        public string TimeAndDescriptiong 
+        public string TimeAndDescription 
         {
-            get => $"{_objectiveTime} - {_objectiveDescription}";
+            get => $"{objectiveTime}:{objectiveDescription}";
         }
 
         public Objective(DateTime d, string description)
         {
-            _objectiveTime = d;  
-            _objectiveDescription = description;
+            objectiveTime = d;  
+            objectiveDescription = description;
         }
 
     }

@@ -2,21 +2,13 @@ namespace ToDoNotify
 {
     public partial class Form1 : Form
     {
-        ViewModel viewModel = new ViewModel();
+        public static ListBox listBox1 = new ListBox() { Location = new Point(12,44), Size = new Size(245,199)};
+        ViewModel viewModel = new ViewModel() { listOfObjectives = listBox1};
+
         public Form1()
         {
             InitializeComponent();
-
-        }
-
-        private void ToDoNotify_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
-        {
-
+            Controls.Add(listBox1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -29,14 +21,11 @@ namespace ToDoNotify
                 textBox1.Text
                 );
             viewModel.objectives.Add(newObjective);
+
+            listBox1.Items.Add(newObjective.TimeAndDescription);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
@@ -52,6 +41,16 @@ namespace ToDoNotify
         }
 
         private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ToDoNotify_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
 
         }
