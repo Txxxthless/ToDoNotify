@@ -2,13 +2,22 @@ namespace ToDoNotify
 {
     public partial class Form1 : Form
     {
-        public static ListBox listBox1 = new ListBox() { Location = new Point(12,44), Size = new Size(245,199)};
-        ViewModel viewModel = new ViewModel() { listOfObjectives = listBox1};
+        public delegate void DeleteObjective(int index);
+        public DeleteObjective DeleteFromListBox;
+        public ListBox listBox1 = new ListBox() { Location = new Point(12,44), Size = new Size(245,199)};
+        ViewModel viewModel = new ViewModel();
 
         public Form1()
         {
             InitializeComponent();
             Controls.Add(listBox1);
+            viewModel.mainForm = this;
+            DeleteFromListBox = (int index) =>
+            {
+                listBox1.Items.RemoveAt(index);
+            };
+
+            Task.Run(() => viewModel.DoChecking());
         }
 
         private void button1_Click(object sender, EventArgs e)

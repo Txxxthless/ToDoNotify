@@ -4,29 +4,30 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ToDoNotify 
 {
     internal class ViewModel
     {
         public List<Objective> objectives = new List<Objective>();
-        public ListBox? listOfObjectives;   
+        public Form1? mainForm;
 
         public void DoChecking()
         {
             while (true)
             {
-                foreach (Objective o in objectives)
+                Thread.Sleep(1000);
+                foreach (var o in objectives)
                 {
-                    if ((o.objectiveTime - DateTime.Now).Milliseconds <= 0)
+                    if (mainForm is not null)
                     {
-                        int index = objectives.IndexOf(o);
-                        listOfObjectives.Items.RemoveAt(index);
-                        objectives.RemoveAt(index);
+                        mainForm.Invoke(mainForm.DeleteFromListBox, new Object[] { objectives.IndexOf(o) });
+                        objectives.Remove(o);
+                        break;
                     }
                 }
             }
         }
-    
     }
 }
