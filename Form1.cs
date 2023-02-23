@@ -1,4 +1,6 @@
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Json;
+using System.Text.Json;
 
 namespace ToDoNotify
 {
@@ -6,7 +8,7 @@ namespace ToDoNotify
     {
         public delegate void DeleteObjective(int index);
         public DeleteObjective DeleteFromListBox;
-        public ListBox listBox1 = new ListBox() { Location = new Point(12,44), Size = new Size(245,199)};
+        public ListBox listBox1 = new ListBox() { Location = new Point(12,44), Size = new Size(300, 300)};
         ViewModel viewModel = new ViewModel();
 
         public Form1()
@@ -40,24 +42,24 @@ namespace ToDoNotify
 
         private void ToDoNotify_Load(object sender, EventArgs e)
         {
-            using FileStream fs = new FileStream("user_config.s", FileMode.OpenOrCreate);
+            using FileStream jsonfs = new FileStream("config.json", FileMode.OpenOrCreate);
             try
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                viewModel.objectives = (List<Objective>)bf.Deserialize(fs);
-
-                if (viewModel.objectives.Count != 0)
+                var formatter = new DataContractJsonSerializer(typeof(List<Objective>));
+                viewModel.objectives = formatter.ReadObject(jsonfs) as List<Objective>;
+                foreach (var o in viewModel.objectives)
                 {
-                    foreach (var o in viewModel.objectives) listBox1.Items.Add(o.TimeAndDescription);
+                    listBox1.Items.Add(o.TimeAndDescription);
                 }
             } catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            using FileStream fs = new FileStream("user_config.s", FileMode.OpenOrCreate);
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fs, viewModel.objectives);
+            using FileStream jsonfs = new FileStream("config.json", FileMode.Create);
+
+            var formatter = new DataContractJsonSerializer(typeof(List<Objective>));
+            formatter.WriteObject(jsonfs, viewModel.objectives);
         }
 
 

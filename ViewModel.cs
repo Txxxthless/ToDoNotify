@@ -10,7 +10,7 @@ namespace ToDoNotify
 {
     internal class ViewModel
     {
-        public List<Objective> objectives = new List<Objective>();
+        public List<Objective>? objectives = new List<Objective>();
         public Form1? mainForm;
 
         public void DoChecking()
