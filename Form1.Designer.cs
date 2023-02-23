@@ -138,6 +138,7 @@
             this.Controls.Add(this.dateTimePicker1);
             this.Name = "Form1";
             this.Text = "To Do Notify!";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.ToDoNotify_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
